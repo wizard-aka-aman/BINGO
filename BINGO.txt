@@ -81,7 +81,7 @@ class Program
         }
         //initial   printing userstring   & printing computerstring 
 
-        Console.WriteLine("USER"); 
+        Console.WriteLine("USER");
         for (int i = 0; i < 5; i++)
         {
             for (int j = 0; j < 5; j++)
@@ -227,7 +227,24 @@ class Program
 
                 bool rightdiagonalcomputer = false;
                 bool leftdiagonalcomputer = false;
-
+                if (userwin >= 5)
+                {
+                    Console.WriteLine("##################");
+                    Console.WriteLine("#                #");
+                    Console.WriteLine("#     USER WIN   #");
+                    Console.WriteLine("#                #");
+                    Console.WriteLine("##################");
+                    break;
+                }
+                if (computerwin >= 5)
+                {
+                    Console.WriteLine("##################");
+                    Console.WriteLine("#                #");
+                    Console.WriteLine("#  COMPUTER WIN  #");
+                    Console.WriteLine("#                #");
+                    Console.WriteLine("##################");
+                    break;
+                }
                 for (int a = 0; a < 5; a++)
                 {
                     // user win
@@ -256,73 +273,110 @@ class Program
                                userstring[3, 3] == "X " &&
                                userstring[4, 4] == "X ")
                     {
-                        if (rightdiagonaluser == false) { 
-                            userwin++;
-                        rightdiagonaluser = true;
-                    }
-                        }
-                        //left diagonal
-                        if (       userstring[0, 4] == "X " &&
-                                   userstring[1,3 ] == "X " &&
-                                   userstring[2,2 ] == "X " &&
-                                   userstring[3,1 ] == "X " &&
-                                   userstring[4, 0] == "X ")
+                        if (rightdiagonaluser == false)
                         {
+                            userwin++;
+                            rightdiagonaluser = true;
+                        }
+                    }
+                    //left diagonal
+                    if (userstring[0, 4] == "X " &&
+                               userstring[1, 3] == "X " &&
+                               userstring[2, 2] == "X " &&
+                               userstring[3, 1] == "X " &&
+                               userstring[4, 0] == "X ")
+                    {
                         if (leftdiagonaluser == false)
                         {
                             userwin++;
                             leftdiagonaluser = true;
                         }
                     }
-                        //computer win
-                        // row
-                        if (       computerstring[a, 0] == "X " &&
-                                   computerstring[a, 1] == "X " &&
-                                   computerstring[a, 2] == "X " &&
-                                   computerstring[a, 3] == "X " &&
-                                   computerstring[a, 4] == "X ")
-                        {
-                            computerwin++;
-                        }
-                        //column
-                        if (       computerstring[0, a] == "X " &&
-                                   computerstring[1, a] == "X " &&
-                                   computerstring[2, a] == "X " &&
-                                   computerstring[3, a] == "X " &&
-                                   computerstring[4, a] == "X ")
-                        {
-                            computerwin++;
-                        }
-                        // right diagonal
-                        if (       computerstring[0, 0] == "X " &&
-                                   computerstring[1, 1] == "X " &&
-                                   computerstring[2, 2] == "X " &&
-                                   computerstring[3, 3] == "X " &&
-                                   computerstring[4, 4] == "X ")
-                        {
+                    if (userwin >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#     USER WIN   #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    if (computerwin >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#  COMPUTER WIN  #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    //computer win
+                    // row
+                    if (computerstring[a, 0] == "X " &&
+                               computerstring[a, 1] == "X " &&
+                               computerstring[a, 2] == "X " &&
+                               computerstring[a, 3] == "X " &&
+                               computerstring[a, 4] == "X ")
+                    {
+                        computerwin++;
+                    }
+                    //column
+                    if (computerstring[0, a] == "X " &&
+                               computerstring[1, a] == "X " &&
+                               computerstring[2, a] == "X " &&
+                               computerstring[3, a] == "X " &&
+                               computerstring[4, a] == "X ")
+                    {
+                        computerwin++;
+                    }
+                    // right diagonal
+                    if (computerstring[0, 0] == "X " &&
+                               computerstring[1, 1] == "X " &&
+                               computerstring[2, 2] == "X " &&
+                               computerstring[3, 3] == "X " &&
+                               computerstring[4, 4] == "X ")
+                    {
                         if (rightdiagonalcomputer == false)
                         {
                             computerwin++;
                             rightdiagonalcomputer = true;
                         }
                     }
-                        //left diagonal
-                        if (       computerstring[0,4] == "X " &&
-                                   computerstring[1,3] == "X " &&
-                                   computerstring[2,2] == "X " &&
-                                   computerstring[3,1] == "X " &&
-                                   computerstring[4,0] == "X ")
-                        {
+                    //left diagonal
+                    if (computerstring[0, 4] == "X " &&
+                               computerstring[1, 3] == "X " &&
+                               computerstring[2, 2] == "X " &&
+                               computerstring[3, 1] == "X " &&
+                               computerstring[4, 0] == "X ")
+                    {
                         if (leftdiagonalcomputer == false)
                         {
                             computerwin++;
                             leftdiagonalcomputer = true;
                         }
-                    } 
+                    }
+                    if (userwin >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#     USER WIN   #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    if (computerwin >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#  COMPUTER WIN  #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
                 }
                 Console.WriteLine("USER     : " + userwin);
                 Console.WriteLine("COMPUTER : " + computerwin);
-                
+
 
                 //for (int i = 0; i < 25; i++)
                 //{
@@ -348,24 +402,7 @@ class Program
                 //    }
                 //    Console.WriteLine();
                 //}
-                if (userwin >= 5)
-                {
-                    Console.WriteLine("##################");
-                    Console.WriteLine("#                #");
-                    Console.WriteLine("#     USER WIN   #");
-                    Console.WriteLine("#                #");
-                    Console.WriteLine("##################");
-                    break;
-                }
-                if (computerwin >= 5)
-                {
-                    Console.WriteLine("##################");
-                    Console.WriteLine("#                #");
-                    Console.WriteLine("#  COMPUTER WIN  #");
-                    Console.WriteLine("#                #");
-                    Console.WriteLine("##################");
-                    break;
-                }
+                
                 Console.WriteLine("Enter the number");
                 number = Console.ReadLine();
                 usedNumbers2[int.Parse(number)] = true;
