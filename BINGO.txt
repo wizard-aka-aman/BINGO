@@ -12,11 +12,20 @@ class Program
         int[] uniqueNumbers = new int[25];
         bool[] usedNumbers = new bool[26];
         int[] uniqueNumbers1 = new int[25];
-        bool[] usedNumbers1 = new bool[26];
+        bool[] usedNumbers1 = new bool[26]; 
         int[,] user = new int[5, 5];
         int[,] computer = new int[5, 5];
-        int count = 0; int count1 = 0;
+        int count = 0;
+        int count1 = 0;
 
+        //-----------------------------------------------------------------
+        int[] uniqueNumberscom2 = new int[25];
+        bool[] usedNumberscom2 = new bool[26];
+        int[,] computercom2 = new int[5, 5];     
+          int countcom2 = 0;
+        //-----------------------------------------------------------------
+
+      
         // storing the unique values in the 1d useray(uniqueNumbers)
         while (count < 25)
         {
@@ -40,6 +49,21 @@ class Program
                 count1++;
             }
         }
+        //-----------------------------------------------------------------
+
+        while (countcom2 < 25)
+        {
+            int randomNumcom2 = rand.Next(1, 26);
+
+            if (!usedNumberscom2[randomNumcom2])
+            {
+                uniqueNumberscom2[countcom2] = randomNumcom2;
+                usedNumberscom2[randomNumcom2] = true;
+                countcom2++;
+            }
+        }        
+        //-----------------------------------------------------------------
+
 
         //1-d to 2-d useray convert
         int add = 0;
@@ -60,6 +84,18 @@ class Program
             }
             add1 += 5;
         }
+        //-----------------------------------------------------------------
+
+        int addcom2 = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                computercom2[i, j] = uniqueNumberscom2[j + addcom2];
+            }
+            addcom2 += 5;
+        }
+        //-----------------------------------------------------------------
 
 
         // 2d int arr to 2d string array 
@@ -79,6 +115,18 @@ class Program
                 computerstring[j, i] = computer[j, i].ToString();
             }
         }
+        //-----------------------------------------------------------------
+
+        string[,] computerstringcom2 = new string[5, 5];
+        for (int j = 0; j < 5; j++)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                computerstringcom2[j, i] = computercom2[j, i].ToString();
+            }
+        }
+        //-----------------------------------------------------------------
+
         //initial   printing userstring   & printing computerstring 
 
         Console.WriteLine("USER");
@@ -93,18 +141,33 @@ class Program
             }
             Console.WriteLine();
         }
-        //Console.WriteLine("COMPUTER");
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    for (int j = 0; j < 5; j++)
-        //    {
-        //        if (computer[i, j] > 9)
-        //            Console.Write(" " + computerstring[i, j] + " ");
-        //        else
-        //            Console.Write(" " + computerstring[i, j] + "  ");
-        //    }
-        //    Console.WriteLine();
-        //}
+        Console.WriteLine("COMPUTER");
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (computer[i, j] > 9)
+                    Console.Write(" " + computerstring[i, j] + " ");
+                else
+                    Console.Write(" " + computerstring[i, j] + "  ");
+            }
+            Console.WriteLine();
+        }
+        //-----------------------------------------------------------------
+        Console.WriteLine("COMPUTERCOM2");
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                if (computercom2[i, j] > 9)
+                    Console.Write(" " + computerstringcom2[i, j] + " ");
+                else
+                    Console.Write(" " + computerstringcom2[i, j] + "  ");
+            }
+            Console.WriteLine();
+        }        
+        //-----------------------------------------------------------------
+
 
         // game function
 
@@ -124,13 +187,14 @@ class Program
 
             // user called a number  
 
-            int randomNum2 = rand.Next(1, 26);
             // computer chooses
+            int randomNum2 = rand.Next(1, 26);
             //Console.WriteLine(randomNum2);
 
 
             if (!usedNumbers2[randomNum2])
             {
+                // user select user delete  1
                 for (int i = 0; i < 5; i++)
                 {
                     for (int j = 0; j < 5; j++)
@@ -142,6 +206,7 @@ class Program
                         }
                     }
                 }
+                // remove form computer
                 for (int i = 0; i < 5; i++)
                 {
                     for (int j = 0; j < 5; j++)
@@ -153,7 +218,20 @@ class Program
                         }
                     }
                 }
-                // computer called a number 
+                // remove from computer com2 
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (number == computerstringcom2[i, j])
+                        {
+                            computerstringcom2[i, j] = "X ";
+                            break;
+                        }
+                    }
+                }
+
+                // computer called a number  // computer select computer delete 2
                 for (int i = 0; i < 5; i++)
                 {
                     for (int j = 0; j < 5; j++)
@@ -165,6 +243,7 @@ class Program
                         }
                     }
                 }
+                // remove form user
                 for (int i = 0; i < 5; i++)
                 {
                     for (int j = 0; j < 5; j++)
@@ -175,23 +254,92 @@ class Program
                             break;
                         }
                     }
-
                 }
+                // remove from computer com 2
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (randomNum2.ToString() == computerstringcom2[i, j])
+                        {
+                            computerstringcom2[i, j] = "X ";
+                            break;
+                        }
+                    }
+                }
+                
+
 
                 uniqueNumbers2[count2] = randomNum2;
                 usedNumbers2[randomNum2] = true;
                 count2++;
+                //--------------------------------COMPUTER COM 2-------------------------------------------------------
+                int randomNumcom2 =0;
+                while (true)
+                {
+                    // computercom2 chooses
+                    randomNumcom2 = rand.Next(1, 26);
+                    //Console.WriteLine(randomNum2);
+                    if (!usedNumbers2[randomNumcom2])
+                    {
+                        uniqueNumbers2[count2] = randomNumcom2;
+                        usedNumbers2[randomNumcom2] = true;
+                        count2++;
 
-                //for (int i = 0; i < 25; i++)
-                //{
-                //    Console.Write(uniqueNumbers2[i] + " ");
-                //}
-                //Console.WriteLine();
-                //for (int i = 0; i < 26; i++)
-                //{
-                //    Console.Write(usedNumbers2[i] + " ");
-                //}
-                //Console.WriteLine();
+                        break;
+                    }
+                  
+                }
+                // computer called a number  // computer com2 select computer com 2 delete 3
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (randomNumcom2.ToString() == computerstringcom2[i, j])
+                        {
+                            computerstringcom2[i, j] = "X ";
+                            break;
+                        }
+                    }
+                }
+                // remove form user
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (randomNumcom2.ToString() == userstring[i, j])
+                        {
+                            userstring[i, j] = "X ";
+                            break;
+                        }
+                    }
+                }
+                // remove from computer com 2
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (randomNumcom2.ToString() == computerstring[i, j])
+                        {
+                            computerstring[i, j] = "X ";
+                            break;
+                        }
+                    }
+                }
+
+                //-------------------------------------COMPUTER COM 2---------------------------
+
+
+                for (int i = 0; i < 25; i++)
+                {
+                    Console.Write(uniqueNumbers2[i] + " ");
+                }
+                Console.WriteLine();
+                for (int i = 0; i < 26; i++)
+                {
+                    Console.Write(usedNumbers2[i] + " ");
+                }
+                Console.WriteLine();
 
                 // after printing
                 Console.WriteLine("USER");
@@ -207,26 +355,217 @@ class Program
                     Console.WriteLine();
                 }
 
-                //Console.WriteLine("COMPUTER");
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    for (int j = 0; j < 5; j++)
-                //    {
-                //        if (computer[i, j] > 9)
-                //            Console.Write(" " + computerstring[i, j] + " ");
-                //        else
-                //            Console.Write(" " + computerstring[i, j] + "  ");
-                //    }
-                //    Console.WriteLine();
-                //}
+                Console.WriteLine("COMPUTER");
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (computer[i, j] > 9)
+                            Console.Write("  " + computerstring[i, j] + "  ");
+                        else
+                            Console.Write("  " + computerstring[i, j] + "   ");
+                    }
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine("COMPUTER COM 2");
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (computercom2[i, j] > 9)
+                            Console.Write("  " + computerstringcom2[i, j] + "  ");
+                        else
+                            Console.Write("  " + computerstringcom2[i, j] + "   ");
+                    }
+                    Console.WriteLine();
+                }
                 // game login
-                int computerwin = 0;
+
                 int userwin = 0;
                 bool rightdiagonaluser = false;
                 bool leftdiagonaluser = false;
 
+                int computerwin = 0;
                 bool rightdiagonalcomputer = false;
                 bool leftdiagonalcomputer = false;
+                //---------------------------------------------------------------
+                int computercom2win = 0;
+                bool rightdiagonalcomputercom2 = false;
+                bool leftdiagonalcomputercom2 = false;
+                //---------------------------------------------------------------
+                // 2 computer logic starts here
+                //if (userwin >= 5)
+                //{
+                //    Console.WriteLine("##################");
+                //    Console.WriteLine("#                #");
+                //    Console.WriteLine("#     USER WIN   #");
+                //    Console.WriteLine("#                #");
+                //    Console.WriteLine("##################");
+                //    break;
+                //}
+                //if (computerwin >= 5)
+                //{
+                //    Console.WriteLine("##################");
+                //    Console.WriteLine("#                #");
+                //    Console.WriteLine("#  COMPUTER WIN  #");
+                //    Console.WriteLine("#                #");
+                //    Console.WriteLine("##################");
+                //    break;
+                //}
+                
+                //for (int a = 0; a < 5; a++)
+                //{
+                //    // user win
+                //    // row
+                //    if (userstring[a, 0] == "X " &&
+                //                userstring[a, 1] == "X " &&
+                //                userstring[a, 2] == "X " &&
+                //                userstring[a, 3] == "X " &&
+                //                userstring[a, 4] == "X ")
+                //    {
+                //        userwin++;
+                //    }
+                //    // column
+                //    if (userstring[0, a] == "X " &&
+                //               userstring[1, a] == "X " &&
+                //               userstring[2, a] == "X " &&
+                //               userstring[3, a] == "X " &&
+                //               userstring[4, a] == "X ")
+                //    {
+                //        userwin++;
+                //    }
+                //    // right diagonal
+                //    if (userstring[0, 0] == "X " &&
+                //               userstring[1, 1] == "X " &&
+                //               userstring[2, 2] == "X " &&
+                //               userstring[3, 3] == "X " &&
+                //               userstring[4, 4] == "X ")
+                //    {
+                //        if (rightdiagonaluser == false)
+                //        {
+                //            userwin++;
+                //            rightdiagonaluser = true;
+                //        }
+                //    }
+                //    //left diagonal
+                //    if (userstring[0, 4] == "X " &&
+                //               userstring[1, 3] == "X " &&
+                //               userstring[2, 2] == "X " &&
+                //               userstring[3, 1] == "X " &&
+                //               userstring[4, 0] == "X ")
+                //    {
+                //        if (leftdiagonaluser == false)
+                //        {
+                //            userwin++;
+                //            leftdiagonaluser = true;
+                //        }
+                //    }
+                //    if (userwin >= 5)
+                //    {
+                //        Console.WriteLine("##################");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("#     USER WIN   #");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("##################");
+                //        break;
+                //    }
+                //    if (computerwin >= 5)
+                //    {
+                //        Console.WriteLine("##################");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("#  COMPUTER WIN  #");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("##################");
+                //        break;
+                //    }
+                //    if (computercom2win >= 5)
+                //    {
+                //        Console.WriteLine("##################");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("#COMPUTERCOM2 WIN#");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("##################");
+                //        break;
+                //    }
+                //    //computer win
+                //    // row
+                //    if (computerstring[a, 0] == "X " &&
+                //               computerstring[a, 1] == "X " &&
+                //               computerstring[a, 2] == "X " &&
+                //               computerstring[a, 3] == "X " &&
+                //               computerstring[a, 4] == "X ")
+                //    {
+                //        computerwin++;
+                //    }
+                //    //column
+                //    if (computerstring[0, a] == "X " &&
+                //               computerstring[1, a] == "X " &&
+                //               computerstring[2, a] == "X " &&
+                //               computerstring[3, a] == "X " &&
+                //               computerstring[4, a] == "X ")
+                //    {
+                //        computerwin++;
+                //    }
+                //    // right diagonal
+                //    if (computerstring[0, 0] == "X " &&
+                //               computerstring[1, 1] == "X " &&
+                //               computerstring[2, 2] == "X " &&
+                //               computerstring[3, 3] == "X " &&
+                //               computerstring[4, 4] == "X ")
+                //    {
+                //        if (rightdiagonalcomputer == false)
+                //        {
+                //            computerwin++;
+                //            rightdiagonalcomputer = true;
+                //        }
+                //    }
+                //    //left diagonal
+                //    if (computerstring[0, 4] == "X " &&
+                //               computerstring[1, 3] == "X " &&
+                //               computerstring[2, 2] == "X " &&
+                //               computerstring[3, 1] == "X " &&
+                //               computerstring[4, 0] == "X ")
+                //    {
+                //        if (leftdiagonalcomputer == false)
+                //        {
+                //            computerwin++;
+                //            leftdiagonalcomputer = true;
+                //        }
+                //    }
+                //    if (userwin >= 5)
+                //    {
+                //        Console.WriteLine("##################");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("#     USER WIN   #");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("##################");
+                //        break;
+                //    }
+                //    if (computerwin >= 5)
+                //    {
+                //        Console.WriteLine("##################");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("#  COMPUTER WIN  #");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("##################");
+                //        break;
+                //    }
+                //    if (computercom2win >= 5)
+                //    {
+                //        Console.WriteLine("##################");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("#COMPUTERCOM2 WIN#");
+                //        Console.WriteLine("#                #");
+                //        Console.WriteLine("##################");
+                //        break;
+                //    }
+                //}
+                //Console.WriteLine("USER     : " + userwin);
+                //Console.WriteLine("COMPUTER : " + computerwin);
+                // 2 computer logic end here
+                //-----------------------------------------------------------------
+                //3 computer logic start here
                 if (userwin >= 5)
                 {
                     Console.WriteLine("##################");
@@ -245,11 +584,20 @@ class Program
                     Console.WriteLine("##################");
                     break;
                 }
+                if (computercom2win >= 5)
+                {
+                    Console.WriteLine("##################");
+                    Console.WriteLine("#                #");
+                    Console.WriteLine("#COMPUTERCOM2 WIN#");
+                    Console.WriteLine("#                #");
+                    Console.WriteLine("##################");
+                    break;
+                }
                 for (int a = 0; a < 5; a++)
                 {
                     // user win
                     // row
-                    if (userstring[a, 0] == "X " &&
+                    if (        userstring[a, 0] == "X " &&
                                 userstring[a, 1] == "X " &&
                                 userstring[a, 2] == "X " &&
                                 userstring[a, 3] == "X " &&
@@ -258,7 +606,7 @@ class Program
                         userwin++;
                     }
                     // column
-                    if (userstring[0, a] == "X " &&
+                    if (       userstring[0, a] == "X " &&
                                userstring[1, a] == "X " &&
                                userstring[2, a] == "X " &&
                                userstring[3, a] == "X " &&
@@ -306,6 +654,15 @@ class Program
                         Console.WriteLine("##################");
                         Console.WriteLine("#                #");
                         Console.WriteLine("#  COMPUTER WIN  #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    if (computercom2win >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#COMPUTERCOM2 WIN#");
                         Console.WriteLine("#                #");
                         Console.WriteLine("##################");
                         break;
@@ -373,10 +730,95 @@ class Program
                         Console.WriteLine("##################");
                         break;
                     }
+                    if (computercom2win >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#COMPUTERCOM2 WIN#");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    //computercom2 win
+                    // row
+                    if (computerstringcom2[a, 0] == "X " &&
+                               computerstringcom2[a, 1] == "X " &&
+                               computerstringcom2[a, 2] == "X " &&
+                               computerstringcom2[a, 3] == "X " &&
+                               computerstringcom2[a, 4] == "X ")
+                    {
+                        computercom2win++;
+                    }
+                    //column
+                    if (computerstringcom2[0, a] == "X " &&
+                               computerstringcom2[1, a] == "X " &&
+                               computerstringcom2[2, a] == "X " &&
+                               computerstringcom2[3, a] == "X " &&
+                               computerstringcom2[4, a] == "X ")
+                    {
+                        computercom2win++;
+                    }
+                    // right diagonal
+                    if (computerstringcom2[0, 0] == "X " &&
+                               computerstringcom2[1, 1] == "X " &&
+                               computerstringcom2[2, 2] == "X " &&
+                               computerstringcom2[3, 3] == "X " &&
+                               computerstringcom2[4, 4] == "X ")
+                    {
+                        if (rightdiagonalcomputercom2 == false)
+                        {
+                            computercom2win++;
+                            rightdiagonalcomputercom2 = true;
+                        }
+                    }
+                    //left diagonal
+                    if (computerstringcom2[0, 4] == "X " &&
+                               computerstringcom2[1, 3] == "X " &&
+                               computerstringcom2[2, 2] == "X " &&
+                               computerstringcom2[3, 1] == "X " &&
+                               computerstringcom2[4, 0] == "X ")
+                    {
+                        if (leftdiagonalcomputercom2 == false)
+                        {
+                           computercom2win++;
+                            leftdiagonalcomputercom2 = true;
+                        }
+                    }
+                    if (userwin >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#     USER WIN   #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    if (computerwin >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#  COMPUTER WIN  #");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;
+                    }
+                    if (computercom2win >= 5)
+                    {
+                        Console.WriteLine("##################");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("#COMPUTERCOM2 WIN#");
+                        Console.WriteLine("#                #");
+                        Console.WriteLine("##################");
+                        break;  
+                    }
                 }
                 Console.WriteLine("USER     : " + userwin);
                 Console.WriteLine("COMPUTER : " + computerwin);
+                Console.WriteLine("COMPUTER COM 2 : " + computercom2win);
 
+
+                // 3 computer logic end here
+                //-----------------------------------------------------------------
 
                 //for (int i = 0; i < 25; i++)
                 //{
@@ -402,7 +844,7 @@ class Program
                 //    }
                 //    Console.WriteLine();
                 //}
-                
+
                 Console.WriteLine("Enter the number");
                 number = Console.ReadLine();
                 usedNumbers2[int.Parse(number)] = true;
